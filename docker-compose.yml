@@ -1,0 +1,22 @@
+version: "v1.b"
+services:
+  app:
+    container_name: penjualan-api
+    restart: always
+    build: ./app
+    image: drfz/penjualan-api:v1.b
+    links:
+      - db
+    ports:
+      - "5000:5000"
+
+  db:
+    container_name: my-db
+    restart: always
+    image: mysql:5.7
+    ports:
+      - "32000:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - ./db:/docker-entrypoint-initdb.d/:ro
